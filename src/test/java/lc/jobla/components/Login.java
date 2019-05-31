@@ -1,11 +1,12 @@
-package lc.jobla;
+package lc.jobla.components;
 
 
+import lc.jobla.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class Login extends PageObject{
+public class Login extends PageObject {
 
     @FindBy(css="#__BVID__57")
     private WebElement email;

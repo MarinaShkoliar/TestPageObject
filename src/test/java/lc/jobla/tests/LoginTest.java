@@ -1,8 +1,9 @@
-package lc.jobla;
+package lc.jobla.tests;
 
-import junit.framework.TestCase;
+import lc.jobla.FunctionalTest;
+import lc.jobla.components.Login;
+import lc.jobla.components.ProfilePage;
 import org.junit.Test;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
