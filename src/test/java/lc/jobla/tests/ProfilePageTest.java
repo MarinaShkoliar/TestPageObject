@@ -37,7 +37,19 @@ public class ProfilePageTest extends FunctionalTest {
 
         profilePage.pressButtonSkip();
 
-        profilePage.pressButtonPublish();
+
+
+        //profilePage.successPopup();
+
+        profilePage.enterFirstName("Marina");
+        profilePage.enterLastName("Shkoliar");
+        profilePage.selectCountry("Ukr");
+        profilePage.selectCity("Kyi");
+        profilePage.selectDate("1996", "May");
+
+        //profilePage.pressButtonPublish();
+
+        //assertEquals("Close", profilePage.successPopup());
 
 
     }
