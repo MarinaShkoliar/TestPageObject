@@ -8,10 +8,10 @@ import org.openqa.selenium.support.FindBy;
 
 public class Login extends PageObject {
 
-    @FindBy(css="#__BVID__57")
+    @FindBy(xpath="//div/form//input")
     private WebElement email;
 
-    @FindBy(css="#__BVID__58")
+    @FindBy(xpath="//div/form/div[3]/div[1]/input")
     private WebElement password;
 
     @FindBy(css=".job-login-component__btn > button")
