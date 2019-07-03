@@ -1,20 +1,19 @@
 package lc.jobla.tests;
+
 import lc.jobla.FunctionalTest;
 import lc.jobla.components.Login;
 import lc.jobla.components.ProfilePage;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ProfilePageTest extends FunctionalTest {
-
-
-
     @Before
-    public void loginToJobla(){
+    public void loginToJobla() {
         driver.get("http://jobla.lc/login");
 
         Login loginPage = new Login(driver);
@@ -34,11 +33,9 @@ public class ProfilePageTest extends FunctionalTest {
         ProfilePage profilePage = new ProfilePage(driver);
         assertTrue(profilePage.isInitialized());
 
-        assertEquals("Profile", profilePage.confirmationHeader());
+        assertEquals("Профиль", profilePage.confirmationHeader());
 
         profilePage.pressButtonSkip();
-
-
 
         //profilePage.successPopup();
 
@@ -46,16 +43,17 @@ public class ProfilePageTest extends FunctionalTest {
         profilePage.enterLastName("Shkoliar");
         profilePage.selectCountry("Ukr");
         profilePage.selectCity("Kyiv");
-        profilePage.selectDate("1996", "May", "5");
+//        profilePage.selectDate("1996", "May", "5");
         profilePage.enterPhone("380974215155");
         profilePage.enterSkype("MySkype");
         profilePage.uploadPhoto();
 
-        //profilePage.pressButtonPublish();
+        profilePage.pressButtonPublish();
 
-        //assertEquals("Close", profilePage.successPopup());
+        assertEquals("Close", profilePage.successPopup());
 
 
     }
+
 
 }

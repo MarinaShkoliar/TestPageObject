@@ -2,22 +2,19 @@ package lc.jobla.components;
 
 
 import lc.jobla.PageObject;
-import org.openqa.selenium.*;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
-import java.beans.Visibility;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ProfilePage extends PageObject {
 
@@ -27,18 +24,18 @@ public class ProfilePage extends PageObject {
 
     private Actions actions = new Actions(driver);
 
-    WebDriverWait wait = new WebDriverWait(driver, 30);
+    private WebDriverWait wait = new WebDriverWait(driver, 5);
 
-    @FindBy(css="div > h3")
+    @FindBy(css = "div > h3")
     private WebElement header;
 
     @FindBy(xpath = "//*[@id=\"__layout\"]/div/div/div[1]/div/div/span/span/div")
     private WebElement switcher;
 
-    @FindBy(xpath="//*[@id=\"__BVID__205___BV_modal_footer_\"]/button[1]")
+    @FindBy(xpath = "//*[@id=\"__BVID__205___BV_modal_footer_\"]/button[1]")
     private WebElement skipTourButton;
 
-    @FindBy(className = "fa fa-done")
+    @FindBy(css = "#c675xq1rE > div > a")
     private WebElement popup;
 
     @FindBy(xpath = "//div/form//input")
@@ -80,75 +77,75 @@ public class ProfilePage extends PageObject {
     @FindBy(xpath = "//form//div[1]/div[7]//div[1]/input")
     private WebElement skype;
 
-    @FindBy(xpath = "//*[@id=\"change-image\"]")
+    @FindBy(xpath = "//*[@id=\"__layout\"]//div[2]//div/input")
     private WebElement img;
 
+    @FindBy(xpath = "//*[@id=\"__BVID__210___BV_modal_footer_\"]/button[2]")
+    private WebElement uploadImage;
 
 
-
-
-    public void pressButtonPublish(){
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
+    public void pressButtonPublish() {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", switcher);
     }
 
-    public void pressButtonSkip(){
+    public void pressButtonSkip() {
         wait.until(ExpectedConditions.visibilityOf(skipTourButton));
         skipTourButton.click();
     }
 
-    public boolean isInitialized(){
+    public boolean isInitialized() {
         return header.isDisplayed();
     }
 
-    public String confirmationHeader(){
+    public String confirmationHeader() {
         return header.getText();
     }
 
-    public void enterFirstName(String name){
+    public void enterFirstName(String name) {
         actions.moveToElement(firstName).build().perform();
         this.firstName.clear();
         this.firstName.sendKeys(name);
     }
 
-    public void enterLastName(String lastname){
+    public void enterLastName(String lastname) {
         actions.moveToElement(lastName).build().perform();
         this.lastName.clear();
         this.lastName.sendKeys(lastname);
     }
 
-    public void selectCountry(String countryName){
+    public void selectCountry(String countryName) {
         actions.moveToElement(country).build().perform();
-        this.country.sendKeys(Keys.CONTROL,"a",Keys.DELETE);
+        this.country.sendKeys(Keys.CONTROL, "a", Keys.DELETE);
         this.country.sendKeys(countryName);
         listOfCountries.get(0).click();
     }
 
-    public void selectCity(String cityName){
+    public void selectCity(String cityName) {
         actions.moveToElement(city).build().perform();
-        this.city.sendKeys(Keys.CONTROL,"a",Keys.DELETE);
+        this.city.sendKeys(Keys.CONTROL, "a", Keys.DELETE);
         this.city.sendKeys(cityName);
         wait.until(ExpectedConditions.visibilityOfAllElements(listOfCities));
         listOfCities.get(0).click();
         actions.moveToElement(firstName).click().build().perform();
     }
 
-    private void findMonth(String monthDate){
+    private void findMonth(String monthDate) {
         Select drpMonth = new Select(month);
         drpMonth.selectByVisibleText(monthDate);
     }
 
-    private void findDay(String dayDate){
-        for (WebElement a:days){
+    private void findDay(String dayDate) {
+        for (WebElement a : days) {
             String b = a.getText();
-            if (b.equals(dayDate)){
+            if (b.equals(dayDate)) {
                 actions.moveToElement(a).click().build().perform();
                 break;
             }
         }
     }
 
-    public void selectDate(String yearDate, String monthDate, String dayDate){
+    public void selectDate(String yearDate, String monthDate, String dayDate) {
         actions.moveToElement(calendar).click().build().perform();
         wait.until(ExpectedConditions.visibilityOf(year));
         actions.moveToElement(year).click().build().perform();
@@ -159,46 +156,34 @@ public class ProfilePage extends PageObject {
         findDay(dayDate);
     }
 
-    public void enterPhone(String phone){
+    public void enterPhone(String phone) {
         actions.moveToElement(tel).build().perform();
         this.tel.clear();
         this.tel.sendKeys(phone);
     }
 
-    public void enterSkype(String nick){
+    public void enterSkype(String nick) {
         actions.moveToElement(skype).build().perform();
         this.skype.clear();
         this.skype.sendKeys(nick);
     }
 
-    public static void setClipboardData(String string){
+    public static void setClipboardData(String string) {
         StringSelection stringSelection = new StringSelection(string);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
     }
 
-    public void uploadPhoto() throws IOException {
-//        actions.moveToElement(img).click().build().perform();
-//        driver.switchTo().activeElement().sendKeys(url);
-        //img.sendKeys(url);
-        File file = new File("C:\\Users\\marina.shkoliar\\Desktop\\285.jpg");
-        img.click();
-        //img.sendKeys("C:\\Users\\marina.shkoliar\\Desktop\\285.jpg");
-        String[] commands = new String[]{};
-        commands = new String[]{"C:\\Users\\marina.shkoliar\\Desktop\\new.exe"};
-        Runtime.getRuntime().exec(commands);
-
-
+    public void uploadPhoto() {
+        img.sendKeys("D:\\texture.png");
+        wait.until(ExpectedConditions.visibilityOf(uploadImage));
+        uploadImage.click();
     }
 
-
-
-//    public void successPopup(){
-//        String alertText = " ";
-//        WebDriverWait wait = new WebDriverWait(driver, 5);
-//        wait.until(ExpectedConditions.visibilityOf(popup));
-//        alertText = popup.getText();
-//        System.out.println(alertText);
-//    }
+    public String successPopup(){
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.visibilityOf(popup));
+        return popup.getText();
+    }
 
 
 }
