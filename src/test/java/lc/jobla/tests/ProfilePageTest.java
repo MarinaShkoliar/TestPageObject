@@ -16,6 +16,7 @@ public class ProfilePageTest extends FunctionalTest {
     public void loginToJobla() {
         driver.get("http://jobla.lc/login");
 
+        assert (true);
         Login loginPage = new Login(driver);
         assertTrue(loginPage.isInitialized());
 
