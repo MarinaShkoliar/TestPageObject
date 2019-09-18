@@ -29,7 +29,6 @@ public class ProfilePageTest extends FunctionalTest {
 
     @Test
     public void unpublishProfile() throws IOException {
-        fdfsfsd
 
         ProfilePage profilePage = new ProfilePage(driver);
         assertTrue(profilePage.isInitialized());
